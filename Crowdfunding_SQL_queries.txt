@@ -1,0 +1,772 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 37
+Server version: 8.0.37 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use aivariant_project;
+Database changed
+mysql> select concat(round(sum(backers_count)/1000000,0)," M ") as number_of_backers from projects;
++-------------------+
+| number_of_backers |
++-------------------+
+| 45 M              |
++-------------------+
+1 row in set (2.98 sec)
+
+mysql> select concat(round((COUNT(CASE WHEN state = 'Successful' THEN 1 END) * 100.0)/ COUNT(projectid),2)," %") AS successful_projects_Overall
+    -> FROM projects;
++-----------------------------+
+| successful_projects_Overall |
++-----------------------------+
+| 38.35 %                     |
++-----------------------------+
+1 row in set (0.79 sec)
+
+mysql> select concat(round(sum(usd_pledged)/1000000,2)," M ") as amount_raised_in_usd from projects;
++----------------------+
+| amount_raised_in_usd |
++----------------------+
+| 3855.31 M            |
++----------------------+
+1 row in set (0.54 sec)
+
+mysql> select concat(round(COUNT(CASE WHEN state = 'Successful' THEN 1 END)/1000,0)," K ") as successful_projects from projects;
++---------------------+
+| successful_projects |
++---------------------+
+| 140 K               |
++---------------------+
+1 row in set (0.76 sec)
+
+mysql> select l.country, count(p.projectid) as total_no_of_Projects from projects p inner join location_1 l on p.location_id=l.id
+    -> group by l.country order by count(p.projectid) desc;
++---------+----------------------+
+| country | total_no_of_Projects |
++---------+----------------------+
+| US      |               269191 |
+| GB      |                32869 |
+| CA      |                14630 |
+| AU      |                 7505 |
+| DE      |                 4821 |
+| FR      |                 3757 |
+| IT      |                 3671 |
+| MX      |                 3000 |
+| ES      |                 2906 |
+| NL      |                 2698 |
+| SE      |                 1941 |
+| NZ      |                 1488 |
+| HK      |                 1324 |
+| DK      |                 1192 |
+| JP      |                  936 |
+| IE      |                  925 |
+| SG      |                  923 |
+| CH      |                  907 |
+| AT      |                  715 |
+| BE      |                  694 |
+| NO      |                  681 |
+| CN      |                  568 |
+| IN      |                  342 |
+| UA      |                  326 |
+| PL      |                  288 |
+| IL      |                  276 |
+| TW      |                  268 |
+| TH      |                  256 |
+| KR      |                  242 |
+| PR      |                  222 |
+| BR      |                  217 |
+| ZA      |                  217 |
+| CO      |                  201 |
+| RU      |                  198 |
+| GR      |                  188 |
+| ID      |                  161 |
+| TR      |                  161 |
+| CZ      |                  159 |
+| PE      |                  154 |
+| SI      |                  149 |
+| AR      |                  141 |
+| HU      |                  139 |
+| KE      |                  136 |
+| PH      |                  129 |
+| IS      |                  122 |
+| RO      |                  117 |
+| NP      |                  117 |
+| FI      |                  107 |
+| CL      |                  102 |
+| HT      |                   96 |
+| CR      |                   94 |
+| GT      |                   93 |
+| PT      |                   93 |
+| LT      |                   91 |
+| GH      |                   89 |
+| EC      |                   86 |
+| BG      |                   85 |
+| RS      |                   83 |
+| CU      |                   81 |
+| VN      |                   79 |
+| UG      |                   78 |
+| EG      |                   65 |
+| LU      |                   64 |
+| KH      |                   64 |
+| TZ      |                   58 |
+| EE      |                   54 |
+| NI      |                   52 |
+| AF      |                   52 |
+| LV      |                   51 |
+| MY      |                   51 |
+| HR      |                   50 |
+| AE      |                   48 |
+| MA      |                   47 |
+| NG      |                   46 |
+| DO      |                   45 |
+| BO      |                   44 |
+| BA      |                   43 |
+| ET      |                   42 |
+| HN      |                   41 |
+| LB      |                   41 |
+| JM      |                   39 |
+| SJ      |                   37 |
+| RW      |                   35 |
+| PK      |                   35 |
+| MN      |                   34 |
+| VE      |                   33 |
+| IQ      |                   32 |
+| MT      |                   32 |
+| SN      |                   30 |
+| JO      |                   30 |
+| BZ      |                   29 |
+| PS      |                   29 |
+| BY      |                   28 |
+| AQ      |                   28 |
+| SK      |                   27 |
+| PA      |                   27 |
+| GE      |                   26 |
+| SV      |                   25 |
+| MK      |                   24 |
+| CD      |                   23 |
+| VI      |                   23 |
+| MM      |                   22 |
+| LK      |                   22 |
+| AM      |                   21 |
+| UY      |                   20 |
+| CY      |                   19 |
+| LR      |                   19 |
+| ZW      |                   18 |
+| ML      |                   18 |
+| SL      |                   18 |
+| CM      |                   17 |
+| GU      |                   16 |
+| BT      |                   16 |
+| ZM      |                   16 |
+| BS      |                   16 |
+| MZ      |                   15 |
+| MW      |                   15 |
+| MG      |                   13 |
+| IR      |                   11 |
+| NA      |                   11 |
+| TT      |                   11 |
+| GL      |                   11 |
+| TN      |                   11 |
+| BF      |                   10 |
+| KZ      |                    9 |
+| KW      |                    9 |
+| SY      |                    9 |
+| KP      |                    8 |
+| PG      |                    8 |
+| SZ      |                    8 |
+| MD      |                    8 |
+| PY      |                    8 |
+| BB      |                    8 |
+| BD      |                    8 |
+| MC      |                    7 |
+| GP      |                    7 |
+| KG      |                    7 |
+| VU      |                    7 |
+| GN      |                    7 |
+| SD      |                    7 |
+| XK      |                    7 |
+| GM      |                    6 |
+| PF      |                    6 |
+| LA      |                    6 |
+| MU      |                    6 |
+| SR      |                    6 |
+| SS      |                    6 |
+| TO      |                    6 |
+| CI      |                    6 |
+| DM      |                    6 |
+| GY      |                    5 |
+| FJ      |                    5 |
+| NE      |                    5 |
+| LY      |                    5 |
+| FM      |                    5 |
+| GI      |                    5 |
+| AL      |                    5 |
+| SA      |                    5 |
+| BW      |                    5 |
+| UZ      |                    4 |
+| CV      |                    4 |
+| YE      |                    4 |
+| CG      |                    4 |
+| CW      |                    4 |
+| LS      |                    4 |
+| VC      |                    3 |
+| LI      |                    3 |
+| DZ      |                    3 |
+| SO      |                    3 |
+| SX      |                    3 |
+| AZ      |                    3 |
+| MQ      |                    3 |
+| AG      |                    3 |
+| MV      |                    3 |
+| FO      |                    3 |
+| QA      |                    3 |
+| BH      |                    3 |
+| TL      |                    2 |
+| CK      |                    2 |
+| ME      |                    2 |
+| BM      |                    2 |
+| BJ      |                    2 |
+| TD      |                    2 |
+| GQ      |                    2 |
+| MO      |                    2 |
+| TJ      |                    2 |
+| CF      |                    2 |
+| NC      |                    2 |
+| VA      |                    2 |
+| WS      |                    2 |
+| TC      |                    2 |
+| AX      |                    2 |
+| KI      |                    2 |
+| LC      |                    2 |
+| RE      |                    1 |
+| SB      |                    1 |
+| ST      |                    1 |
+| GA      |                    1 |
+| FK      |                    1 |
+| AS      |                    1 |
+| OM      |                    1 |
+| AI      |                    1 |
+| AD      |                    1 |
+| ER      |                    1 |
+| GD      |                    1 |
+| SC      |                    1 |
+| DJ      |                    1 |
+| KY      |                    1 |
+| PN      |                    1 |
+| TG      |                    1 |
+| KN      |                    1 |
+| BQ      |                    1 |
+| MH      |                    1 |
+| MR      |                    1 |
++---------+----------------------+
+214 rows in set (3.64 sec)
+
+mysql> select c. name , count(p.projectid) as total_no_of_Projects_by_Category from projects p inner join crowdfunding_category c  on p.category_id=c.id
+    -> group by c. name  order by count(p.projectid) desc;
++--------------------+----------------------------------+
+| name               | total_no_of_Projects_by_Category |
++--------------------+----------------------------------+
+| Product Design     |                            22270 |
+| Tabletop Games     |                            15618 |
+| Music              |                            15190 |
+| Documentary        |                            14075 |
+| Video Games        |                            11280 |
+| Shorts             |                            10957 |
+| Food               |                             9761 |
+| Film & Video       |                             9322 |
+| Fiction            |                             8304 |
+| Art                |                             7925 |
+| Nonfiction         |                             7622 |
+| Apparel            |                             7501 |
+| Fashion            |                             7333 |
+| Children's Books   |                             6658 |
+| Apps               |                             6454 |
+| Theater            |                             6235 |
+| Rock               |                             6056 |
+| Technology         |                             5512 |
+| Publishing         |                             5195 |
+| Webseries          |                             5170 |
+| Indie Rock         |                             5076 |
+| Photography        |                             5069 |
+| Web                |                             5031 |
+| Narrative Film     |                             4661 |
+| Comics             |                             4606 |
+| Crafts             |                             4469 |
+| Country & Folk     |                             4245 |
+| Accessories        |                             4221 |
+| Illustration       |                             3718 |
+| Hip-Hop            |                             3640 |
+| Hardware           |                             3611 |
+| Design             |                             3507 |
+| Comic Books        |                             3434 |
+| Gadgets            |                             3349 |
+| Pop                |                             3118 |
+| Painting           |                             3108 |
+| Playing Cards      |                             2989 |
+| Software           |                             2979 |
+| Restaurants        |                             2948 |
+| Public Art         |                             2842 |
+| Art Books          |                             2697 |
+| Mixed Media        |                             2682 |
+| Drinks             |                             2598 |
+| Games              |                             2552 |
+| Animation          |                             2519 |
+| Comedy             |                             2501 |
+| Classical Music    |                             2454 |
+| Drama              |                             2286 |
+| Graphic Novels     |                             2208 |
+| Dance              |                             2084 |
+| Electronic Music   |                             2076 |
+| World Music        |                             2025 |
+| Graphic Design     |                             2017 |
+| Performance Art    |                             2004 |
+| Small Batch        |                             1824 |
+| Mobile Games       |                             1819 |
+| Jazz               |                             1759 |
+| Food Trucks        |                             1729 |
+| Sculpture          |                             1719 |
+| Photobooks         |                             1687 |
+| Journalism         |                             1610 |
+| Digital Art        |                             1499 |
+| Jewelry            |                             1391 |
+| Plays              |                             1377 |
+| Poetry             |                             1373 |
+| Horror             |                             1365 |
+| Wearables          |                             1360 |
+| Woodworking        |                             1193 |
+| DIY                |                             1192 |
+| Periodicals        |                             1190 |
+| Farms              |                             1134 |
+| People             |                             1071 |
+| Live Games         |                             1064 |
+| Faith              |                             1063 |
+| Footwear           |                             1059 |
+| Television         |                             1038 |
+| Performances       |                             1018 |
+| Conceptual Art     |                              989 |
+| DIY Electronics    |                              985 |
+| Experimental       |                              977 |
+| Anthologies        |                              959 |
+| Academic           |                              951 |
+| Ready-to-wear      |                              929 |
+| Radio & Podcasts   |                              925 |
+| Musical            |                              914 |
+| Festivals          |                              855 |
+| Spaces             |                              850 |
+| Young Adult        |                              838 |
+| Events             |                              813 |
+| Fine Art           |                              795 |
+| Science Fiction    |                              795 |
+| Sound              |                              782 |
+| Thrillers          |                              776 |
+| Webcomics          |                              773 |
+| Architecture       |                              754 |
+| Action             |                              752 |
+| Print              |                              743 |
+| Metal              |                              724 |
+| 3D Printing        |                              709 |
+| Places             |                              691 |
+| Vegan              |                              681 |
+| Music Videos       |                              678 |
+| Robots             |                              594 |
+| Cookbooks          |                              560 |
+| Nature             |                              558 |
+| Installations      |                              521 |
+| Childrenswear      |                              505 |
+| Camera Equipment   |                              472 |
+| R&B                |                              469 |
+| Gaming Hardware    |                              458 |
+| Candles            |                              456 |
+| Zines              |                              439 |
+| Audio              |                              427 |
+| Video              |                              414 |
+| Farmer's Markets   |                              408 |
+| Interactive Design |                              401 |
+| Flight             |                              400 |
+| Fantasy            |                              375 |
+| Calendars          |                              367 |
+| Immersive          |                              364 |
+| Family             |                              343 |
+| Ceramics           |                              323 |
+| Punk               |                              322 |
+| Space Exploration  |                              318 |
+| Textiles           |                              307 |
+| Civic Design       |                              287 |
+| Literary Journals  |                              286 |
+| Kids               |                              278 |
+| Couture            |                              272 |
+| Community Gardens  |                              271 |
+| Blues              |                              271 |
+| Fabrication Tools  |                              266 |
+| Animals            |                              250 |
+| Puzzles            |                              248 |
+| Stationery         |                              246 |
+| Printing           |                              239 |
+| Movie Theaters     |                              235 |
+| Makerspaces        |                              233 |
+| Knitting           |                              201 |
+| Bacon              |                              198 |
+| Romance            |                              197 |
+| Video Art          |                              195 |
+| Photo              |                              189 |
+| Crochet            |                              177 |
+| Workshops          |                              161 |
+| Translations       |                              159 |
+| Latin              |                              155 |
+| Pet Fashion        |                              144 |
+| Glass              |                              141 |
+| Typography         |                              126 |
+| Pottery            |                              121 |
+| Embroidery         |                              119 |
+| Weaving            |                               98 |
+| Quilts             |                               78 |
+| Residencies        |                               73 |
+| Literary Spaces    |                               69 |
+| Letterpress        |                               52 |
+| Chiptune           |                               38 |
+| Taxidermy          |                               12 |
++--------------------+----------------------------------+
+159 rows in set (3.59 sec)
+
+mysql> select state, count(projectid) from projects
+    -> group by state
+    -> order by count(projectid) desc;
++------------+------------------+
+| state      | count(projectid) |
++------------+------------------+
+| failed     |           188210 |
+| successful |           140282 |
+| canceled   |            32487 |
+| live       |             3163 |
+| suspended  |             1500 |
+| purged     |              178 |
++------------+------------------+
+6 rows in set (1.72 sec)
+
+mysql> select c.name, sum(p.backers_count) as total_backer_count from projects p join crowdfunding_category c on p.category_id= c.id
+    -> where p.state= "successful"
+    -> group by c.name order by sum(p.backers_count) desc limit 6;
++----------------+--------------------+
+| name           | total_backer_count |
++----------------+--------------------+
+| Tabletop Games |            7682531 |
+| Product Design |            6608081 |
+| Video Games    |            3978501 |
+| Documentary    |            1228910 |
+| Hardware       |            1050453 |
+| Technology     |             996293 |
++----------------+--------------------+
+6 rows in set (1.42 sec)
+
+mysql> select c.name, sum(p.goal) as top_6_projects_by_goal, (sum(p.goal)/1723226382)*100 as percent_top_6_projects_by_goal from projects p join crowdfunding_category c on p.category_id= c.id
+    -> -- where p.state= "successful"
+    -> group by c.name order by sum(p.goal) desc limit 6;
++----------------+------------------------+--------------------------------+
+| name           | top_6_projects_by_goal | percent_top_6_projects_by_goal |
++----------------+------------------------+--------------------------------+
+| Technology     |             1115458564 |                        64.7308 |
+| Video Games    |             1034992363 |                        60.0613 |
+| Product Design |              916639482 |                        53.1932 |
+| Documentary    |              836752587 |                        48.5573 |
+| Film & Video   |              760016852 |                        44.1043 |
+| Apps           |              506057116 |                        29.3668 |
++----------------+------------------------+--------------------------------+
+6 rows in set (4.88 sec)
+
+mysql> select Goal_Range, count(id) as Total_Projects
+    -> from converted_2
+    -> group by Goal_Range;
++------------+----------------+
+| Goal_Range | Total_Projects |
++------------+----------------+
+| Low        |         365315 |
+| Medium     |            286 |
+| Very High  |            239 |
+| High       |             52 |
++------------+----------------+
+4 rows in set (1.95 sec)
+
+mysql> select concat(round(avg(Days_to_complete),0)," Days") as Avg_no_of_days
+    -> from converted_2;
++----------------+
+| Avg_no_of_days |
++----------------+
+| 524 Days       |
++----------------+
+1 row in set (0.53 sec)
+
+mysql> select state, sum(Static_usd) from converted_2
+    -> group by state order by sum(Static_usd) desc;
++------------+-----------------+
+| state      | sum(Static_usd) |
++------------+-----------------+
+| failed     |       153725256 |
+| canceled   |        39071927 |
+| successful |        20586010 |
+| suspended  |         3935698 |
+| live       |         1579009 |
+| purged     |           90652 |
++------------+-----------------+
+6 rows in set (2.24 sec)
+
+mysql> select year, quarter, Month_Name, count(C.id) as Projects from converted_2 C join calendar_table D on C.Created_at_New=D.date
+    -> group by year,quarter,Month_Name order by count(C.id) desc;
++------+---------+------------+----------+
+| year | quarter | Month_Name | Projects |
++------+---------+------------+----------+
+| 2014 | Q2      | July       |    10400 |
+| 2015 | Q4      | March      |     6225 |
+| 2014 | Q2      | August     |     6147 |
+| 2015 | Q4      | February   |     5546 |
+| 2014 | Q3      | October    |     5477 |
+| 2015 | Q1      | May        |     5286 |
+| 2014 | Q2      | September  |     5255 |
+| 2015 | Q4      | January    |     5204 |
+| 2015 | Q1      | April      |     5163 |
+| 2015 | Q2      | July       |     4903 |
+| 2015 | Q1      | June       |     4885 |
+| 2015 | Q2      | August     |     4741 |
+| 2015 | Q3      | October    |     4671 |
+| 2012 | Q4      | March      |     4632 |
+| 2017 | Q4      | March      |     4596 |
+| 2015 | Q2      | September  |     4545 |
+| 2014 | Q3      | November   |     4518 |
+| 2017 | Q1      | May        |     4439 |
+| 2016 | Q4      | March      |     4387 |
+| 2014 | Q1      | April      |     4285 |
+| 2014 | Q4      | March      |     4262 |
+| 2016 | Q1      | May        |     4256 |
+| 2016 | Q4      | February   |     4219 |
+| 2014 | Q1      | June       |     4218 |
+| 2017 | Q4      | January    |     4199 |
+| 2016 | Q4      | January    |     4193 |
+| 2014 | Q1      | May        |     4162 |
+| 2017 | Q1      | April      |     4079 |
+| 2017 | Q2      | August     |     4074 |
+| 2016 | Q1      | April      |     4026 |
+| 2017 | Q3      | October    |     4014 |
+| 2017 | Q1      | June       |     3990 |
+| 2017 | Q2      | July       |     3945 |
+| 2018 | Q4      | January    |     3906 |
+| 2012 | Q1      | May        |     3890 |
+| 2015 | Q3      | November   |     3867 |
+| 2013 | Q1      | May        |     3846 |
+| 2014 | Q4      | January    |     3845 |
+| 2017 | Q4      | February   |     3817 |
+| 2013 | Q3      | October    |     3800 |
+| 2016 | Q1      | June       |     3797 |
+| 2016 | Q2      | September  |     3787 |
+| 2013 | Q4      | March      |     3773 |
+| 2017 | Q2      | September  |     3770 |
+| 2016 | Q2      | July       |     3759 |
+| 2012 | Q1      | April      |     3743 |
+| 2016 | Q2      | August     |     3724 |
+| 2013 | Q1      | April      |     3690 |
+| 2017 | Q3      | November   |     3642 |
+| 2016 | Q3      | October    |     3574 |
+| 2013 | Q3      | November   |     3549 |
+| 2016 | Q3      | November   |     3546 |
+| 2014 | Q4      | February   |     3545 |
+| 2013 | Q2      | August     |     3483 |
+| 2013 | Q4      | January    |     3419 |
+| 2018 | Q2      | August     |     3413 |
+| 2013 | Q2      | July       |     3408 |
+| 2018 | Q3      | October    |     3395 |
+| 2013 | Q1      | June       |     3368 |
+| 2013 | Q2      | September  |     3344 |
+| 2012 | Q4      | February   |     3324 |
+| 2018 | Q2      | September  |     3306 |
+| 2012 | Q2      | July       |     3302 |
+| 2018 | Q1      | May        |     3302 |
+| 2012 | Q1      | June       |     3298 |
+| 2018 | Q2      | July       |     3266 |
+| 2018 | Q4      | March      |     3177 |
+| 2018 | Q1      | April      |     3176 |
+| 2012 | Q2      | August     |     3147 |
+| 2013 | Q4      | February   |     3131 |
+| 2018 | Q4      | February   |     3112 |
+| 2015 | Q3      | December   |     3078 |
+| 2014 | Q3      | December   |     3040 |
+| 2012 | Q3      | October    |     3038 |
+| 2012 | Q4      | January    |     2946 |
+| 2018 | Q1      | June       |     2943 |
+| 2012 | Q2      | September  |     2901 |
+| 2016 | Q3      | December   |     2894 |
+| 2013 | Q3      | December   |     2726 |
+| 2017 | Q3      | December   |     2700 |
+| 2018 | Q3      | November   |     2686 |
+| 2012 | Q3      | November   |     2679 |
+| 2011 | Q3      | November   |     2438 |
+| 2012 | Q3      | December   |     2316 |
+| 2011 | Q3      | December   |     2211 |
+| 2011 | Q1      | June       |     2190 |
+| 2011 | Q3      | October    |     2136 |
+| 2011 | Q1      | May        |     2079 |
+| 2011 | Q2      | July       |     2072 |
+| 2011 | Q2      | August     |     2069 |
+| 2011 | Q1      | April      |     2064 |
+| 2011 | Q4      | March      |     1968 |
+| 2011 | Q2      | September  |     1959 |
+| 2018 | Q3      | December   |     1734 |
+| 2011 | Q4      | February   |     1704 |
+| 2019 | Q4      | January    |     1539 |
+| 2011 | Q4      | January    |     1463 |
+| 2010 | Q3      | December   |     1216 |
+| 2010 | Q3      | November   |     1147 |
+| 2010 | Q3      | October    |     1128 |
+| 2010 | Q2      | September  |     1023 |
+| 2010 | Q1      | June       |      984 |
+| 2010 | Q2      | July       |      971 |
+| 2010 | Q2      | August     |      836 |
+| 2010 | Q1      | May        |      728 |
+| 2010 | Q1      | April      |      668 |
+| 2010 | Q4      | March      |      502 |
+| 2010 | Q4      | February   |      341 |
+| 2009 | Q2      | September  |      306 |
+| 2010 | Q4      | January    |      284 |
+| 2009 | Q3      | November   |      221 |
+| 2009 | Q3      | December   |      202 |
+| 2009 | Q3      | October    |      199 |
+| 2009 | Q2      | August     |      125 |
+| 2009 | Q2      | July       |       83 |
+| 2009 | Q1      | June       |       77 |
+| 2009 | Q1      | May        |       69 |
+| 2009 | Q1      | April      |       26 |
++------+---------+------------+----------+
+118 rows in set (4.43 sec)
+
+mysql> select year, quarter, Month_Name, count(C.id) as Projects from converted_2 C join calendar_table D on C.Created_at_New=D.date
+    -> where state="successful"
+    -> group by year,quarter,Month_Name order by year;
++------+---------+------------+----------+
+| year | quarter | Month_Name | Projects |
++------+---------+------------+----------+
+| 2009 | Q1      | April      |       17 |
+| 2009 | Q1      | June       |       36 |
+| 2009 | Q1      | May        |       26 |
+| 2009 | Q2      | August     |       61 |
+| 2009 | Q2      | July       |       35 |
+| 2009 | Q2      | September  |      111 |
+| 2009 | Q3      | December   |       94 |
+| 2009 | Q3      | November   |      108 |
+| 2009 | Q3      | October    |       88 |
+| 2010 | Q1      | April      |      269 |
+| 2010 | Q1      | June       |      374 |
+| 2010 | Q1      | May        |      298 |
+| 2010 | Q2      | August     |      349 |
+| 2010 | Q2      | July       |      393 |
+| 2010 | Q2      | September  |      467 |
+| 2010 | Q3      | December   |      535 |
+| 2010 | Q3      | November   |      516 |
+| 2010 | Q3      | October    |      527 |
+| 2010 | Q4      | February   |      165 |
+| 2010 | Q4      | January    |      128 |
+| 2010 | Q4      | March      |      249 |
+| 2011 | Q1      | April      |      964 |
+| 2011 | Q1      | June       |     1026 |
+| 2011 | Q1      | May        |      932 |
+| 2011 | Q2      | August     |      899 |
+| 2011 | Q2      | July       |      944 |
+| 2011 | Q2      | September  |      930 |
+| 2011 | Q3      | December   |      929 |
+| 2011 | Q3      | November   |     1030 |
+| 2011 | Q3      | October    |      993 |
+| 2011 | Q4      | February   |      809 |
+| 2011 | Q4      | January    |      653 |
+| 2011 | Q4      | March      |      947 |
+| 2012 | Q1      | April      |     1610 |
+| 2012 | Q1      | June       |     1431 |
+| 2012 | Q1      | May        |     1648 |
+| 2012 | Q2      | August     |     1316 |
+| 2012 | Q2      | July       |     1403 |
+| 2012 | Q2      | September  |     1211 |
+| 2012 | Q3      | December   |     1002 |
+| 2012 | Q3      | November   |     1158 |
+| 2012 | Q3      | October    |     1299 |
+| 2012 | Q4      | February   |     1567 |
+| 2012 | Q4      | January    |     1273 |
+| 2012 | Q4      | March      |     1992 |
+| 2013 | Q1      | April      |     1679 |
+| 2013 | Q1      | June       |     1427 |
+| 2013 | Q1      | May        |     1645 |
+| 2013 | Q2      | August     |     1428 |
+| 2013 | Q2      | July       |     1484 |
+| 2013 | Q2      | September  |     1402 |
+| 2013 | Q3      | December   |     1107 |
+| 2013 | Q3      | November   |     1481 |
+| 2013 | Q3      | October    |     1544 |
+| 2013 | Q4      | February   |     1513 |
+| 2013 | Q4      | January    |     1575 |
+| 2013 | Q4      | March      |     1717 |
+| 2014 | Q1      | April      |     1714 |
+| 2014 | Q1      | June       |     1406 |
+| 2014 | Q1      | May        |     1604 |
+| 2014 | Q2      | August     |     1700 |
+| 2014 | Q2      | July       |     2153 |
+| 2014 | Q2      | September  |     1657 |
+| 2014 | Q3      | December   |     1034 |
+| 2014 | Q3      | November   |     1396 |
+| 2014 | Q3      | October    |     1695 |
+| 2014 | Q4      | February   |     1576 |
+| 2014 | Q4      | January    |     1609 |
+| 2014 | Q4      | March      |     1711 |
+| 2015 | Q1      | April      |     1655 |
+| 2015 | Q1      | June       |     1475 |
+| 2015 | Q1      | May        |     1661 |
+| 2015 | Q2      | August     |     1446 |
+| 2015 | Q2      | July       |     1477 |
+| 2015 | Q2      | September  |     1458 |
+| 2015 | Q3      | December   |      909 |
+| 2015 | Q3      | November   |     1255 |
+| 2015 | Q3      | October    |     1567 |
+| 2015 | Q4      | February   |     1755 |
+| 2015 | Q4      | January    |     1735 |
+| 2015 | Q4      | March      |     1979 |
+| 2016 | Q1      | April      |     1433 |
+| 2016 | Q1      | June       |     1306 |
+| 2016 | Q1      | May        |     1511 |
+| 2016 | Q2      | August     |     1399 |
+| 2016 | Q2      | July       |     1330 |
+| 2016 | Q2      | September  |     1481 |
+| 2016 | Q3      | December   |     1025 |
+| 2016 | Q3      | November   |     1294 |
+| 2016 | Q3      | October    |     1415 |
+| 2016 | Q4      | February   |     1436 |
+| 2016 | Q4      | January    |     1393 |
+| 2016 | Q4      | March      |     1556 |
+| 2017 | Q1      | April      |     1511 |
+| 2017 | Q1      | June       |     1503 |
+| 2017 | Q1      | May        |     1689 |
+| 2017 | Q2      | August     |     1622 |
+| 2017 | Q2      | July       |     1527 |
+| 2017 | Q2      | September  |     1535 |
+| 2017 | Q3      | December   |     1097 |
+| 2017 | Q3      | November   |     1409 |
+| 2017 | Q3      | October    |     1643 |
+| 2017 | Q4      | February   |     1554 |
+| 2017 | Q4      | January    |     1721 |
+| 2017 | Q4      | March      |     1874 |
+| 2018 | Q1      | April      |     1500 |
+| 2018 | Q1      | June       |     1406 |
+| 2018 | Q1      | May        |     1570 |
+| 2018 | Q2      | August     |     1512 |
+| 2018 | Q2      | July       |     1466 |
+| 2018 | Q2      | September  |     1500 |
+| 2018 | Q3      | December   |      331 |
+| 2018 | Q3      | November   |      938 |
+| 2018 | Q3      | October    |     1432 |
+| 2018 | Q4      | February   |     1535 |
+| 2018 | Q4      | January    |     1770 |
+| 2018 | Q4      | March      |     1599 |
+| 2019 | Q4      | January    |       49 |
++------+---------+------------+----------+
+118 rows in set (1.48 sec)
+
+mysql>
